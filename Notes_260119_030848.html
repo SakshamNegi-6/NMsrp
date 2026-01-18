@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Roster with Access</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f0f13;
+            color: #ffffff;
+            margin: 0;
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            background-image: radial-gradient(circle at 50% 0%, #2a2a35 0%, #0f0f13 70%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .role-group {
+            margin-bottom: 30px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #18181b;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .role-group:hover {
+            transform: translateY(-2px);
+        }
+
+        .role-header {
+            padding: 15px 25px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-badge {
+            background: rgba(0,0,0,0.2);
+            color: inherit;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* COLOR THEMES */
+        .founder .role-header { background: linear-gradient(135deg, #ff4757, #ff6b81); box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); color: white; }
+        .owner .role-header { background: linear-gradient(135deg, #ffa502, #ffc048); box-shadow: 0 0 15px rgba(255, 165, 2, 0.4); color: #2d3436; }
+        .co-owner .role-header { background: linear-gradient(135deg, #eccc68, #ffeaa7); box-shadow: 0 0 15px rgba(236, 204, 104, 0.4); color: #2d3436; }
+        .assistant .role-header { background: linear-gradient(135deg, #1e90ff, #70a1ff); box-shadow: 0 0 15px rgba(30, 144, 255, 0.4); color: white; }
+
+        .member-list {
+            padding: 5px 0;
+        }
+
+        .member {
+            padding: 16px 25px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 100px; /* Name, Username, Status */
+            align-items: center;
+            border-bottom: 1px solid #27272a;
+        }
+
+        .member:last-child {
+            border-bottom: none;
+        }
+
+        .name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #ececec;
+        }
+
+        .tag {
+            font-family: 'Courier New', monospace;
+            color: #71717a;
+            font-size: 0.85rem;
+        }
+
+        /* ACCESS STATUS STYLES */
+        .status {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 6px 0;
+            border-radius: 6px;
+            width: 100%;
+        }
+
+        .allowed {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.1);
+        }
+
+        .denied {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            opacity: 0.7;
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .container { box-shadow: none; border: none; }
+            .name { color: #000; }
+            .tag { color: #555; }
+            .allowed { border: 2px solid #2ecc71; color: #2ecc71; -webkit-print-color-adjust: exact; }
+            .denied { border: 1px solid #e74c3c; color: #e74c3c; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>SERVER ROSTER</h1>
+        <div class="subtitle">Official Staff Hierarchy & Permissions</div>
+
+        <div class="role-group founder">
+            <div class="role-header">
+                <span>Founder</span>
+                <span class="header-badge">3</span>
+            </div>
+            <div class="member-list">
+                <div class="member">
+                    <span class="name">F-01 | RealisticRoleplayer8</span>
+                    <span class="tag">@l1terally_anderson</span>
+                    <span class="status allowed">Allowed</span>
+                </div>
+                <div class="member">
+                    <span class="name">F-02 | Fatblackmonki1</span>
+                    <span class="tag">@fatblackmonki1</span>
+                    <span class="status denied">Denied</span>
+                </div>
+                <div class="member">
+                    <span class="name">F-03 | Ibrokethetown</span>
+                    <span class="tag">@mikeytrovv</span>
+                    <span class="status allowed">Allowed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="role-group owner">
+            <div class="role-header">
+                <span>Owner</span>
+                <span class="header-badge">1</span>
+            </div>
+            <div class="member-list">
+                <div class="member">
+                    <span class="name">O | joecool822</span>
+                    <span class="tag">@brandon822</span>
+                    <span class="status denied">Denied</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="role-group co-owner">
+            <div class="role-header">
+                <span>Co Owner</span>
+                <span class="header-badge">2</span>
+            </div>
+            <div class="member-list">
+                <div class="member">
+                    <span class="name">CO-05 | Roblox</span>
+                    <span class="tag">@shanting_op</span>
+                    <span class="status allowed">Allowed</span>
+                </div>
+                <div class="member">
+                    <span class="name">CO | Bentoki92</span>
+                    <span class="tag">@82pxx</span>
+                    <span class="status allowed">Allowed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="role-group assistant">
+            <div class="role-header">
+                <span>Assistant Owner</span>
+                <span class="header-badge">3</span>
+            </div>
+            <div class="member-list">
+                <div class="member">
+                    <span class="name">AO | killepro98thomas</span>
+                    <span class="tag">@killwerpro</span>
+                    <span class="status allowed">Allowed</span>
+                </div>
+                <div class="member">
+                    <span class="name">AO | jehema3456</span>
+                    <span class="tag">@pixelation24</span>
+                    <span class="status denied">Denied</span>
+                </div>
+                <div class="member">
+                    <span class="name">AO | Ch4os_4her</span>
+                    <span class="tag">@sukuna_malovelentshrine</span>
+                    <span class="status denied">Denied</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
