@@ -95,7 +95,7 @@
         .member {
             padding: 16px 25px;
             display: grid;
-            grid-template-columns: 2fr 1fr 100px; /* Name, Username, Status */
+            grid-template-columns: 2fr 1fr 100px;
             align-items: center;
             border-bottom: 1px solid #27272a;
         }
@@ -141,6 +141,44 @@
             opacity: 0.7;
         }
 
+        /* QUICK LINKS SECTION */
+        .links-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .link-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
         @media print {
             body { background: white; color: black; }
             .container { box-shadow: none; border: none; }
@@ -148,6 +186,7 @@
             .tag { color: #555; }
             .allowed { border: 2px solid #2ecc71; color: #2ecc71; -webkit-print-color-adjust: exact; }
             .denied { border: 1px solid #e74c3c; color: #e74c3c; -webkit-print-color-adjust: exact; }
+            .links-section { display: none; } /* Hides buttons when printing to PDF */
         }
     </style>
 </head>
@@ -236,6 +275,15 @@
                     <span class="status denied">Denied</span>
                 </div>
             </div>
+        </div>
+
+        <div class="links-section">
+            <a href="https://docs.google.com/forms/d/1V3zrc4GofL62HK-bQ-8_E_xFPhkb2ryH72aQg6I3N64/edit#responses" target="_blank" class="link-card">
+                <span class="link-icon">📊</span> Media Response
+            </a>
+            <a href="https://docs.google.com/forms/d/1fo6OkfPGr_fDlevecJxHuNA0Wg9HpBsTllbV7QPQNLY/edit#responses" target="_blank" class="link-card">
+                <span class="link-icon">📑</span> IA Response
+            </a>
         </div>
 
     </div>
