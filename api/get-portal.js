@@ -58,7 +58,7 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === TRAINER PANEL (UPDATED) ===
+        // === TRAINER PANEL (FIXED: NOW INCLUDES EXAM) ===
         train: `
             <h2><i class="fas fa-graduation-cap"></i> Training Division</h2>
             <div class="tabs">
@@ -92,46 +92,38 @@ export default function handler(req, res) {
 
             <div id="t-exam" class="tab-content">
                 <div style="display:flex; flex-direction:column; gap:20px;">
-                    
                     <div class="card" style="border-left: 4px solid var(--accent);">
-                        <h3 style="color:var(--accent);">1. Terminology Check</h3>
+                        <h3 style="color:var(--accent);">1. Terminology</h3>
                         <ul style="line-height: 1.8; color: #e4e4e7;">
-                            <li><strong>VDM & RDM:</strong> Define both. Give an example and the punishment for each.</li>
-                            <li><strong>FRP (FailRP):</strong> Definition, Example, and Punishment.</li>
-                            <li><strong>NLR (New Life Rule):</strong> Definition. How would you react if someone broke this?</li>
-                            <li><strong>NITRP (No Intent To RP):</strong> Definition, Example, and Punishment.</li>
-                            <li><strong>Acronyms:</strong> Define <strong>AA</strong> (Admin Abuse), <strong>MA</strong> (Major Abuse), and <strong>COA</strong> (Corruption of Administration).</li>
-                            <li><strong>Abuse Rules:</strong> Define <strong>Tow Abuse</strong> and <strong>Tool Abuse</strong> with examples.</li>
+                            <li><strong>VDM & RDM:</strong> Define + Example + Punishment.</li>
+                            <li><strong>FRP (FailRP):</strong> Definition + Example + Punishment.</li>
+                            <li><strong>NLR (New Life Rule):</strong> Definition. Reaction if broken?</li>
+                            <li><strong>NITRP (No Intent To RP):</strong> Definition + Example + Punishment.</li>
+                            <li><strong>Acronyms:</strong> Define <strong>AA</strong> (Admin Abuse), <strong>MA</strong> (Major Abuse), <strong>COA</strong> (Corruption).</li>
+                            <li><strong>Abuse:</strong> Define <strong>Tow Abuse</strong> and <strong>Tool Abuse</strong>.</li>
                         </ul>
                     </div>
 
                     <div class="card" style="border-left: 4px solid var(--danger);">
                         <h3 style="color:var(--danger);">2. Scenarios</h3>
                         <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; margin-bottom:10px;">
-                            <strong>Scenario A:</strong><br>
-                            A man is shooting up the hospital with 4 people inside during Peacetime. He then leaves the game (LTAAP).<br>
-                            <em style="color:var(--text-muted); font-size:0.9rem;">Target Answer: Mass RDM + LTAAP. Ban/Log required.</em>
+                            <strong>Scenario A:</strong> Hospital Shooting (4 people) + LTAAP.<br>
+                            <em style="color:#9ca3af;">Target: Mass RDM + LTAAP (Ban).</em>
                         </div>
                         <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; margin-bottom:10px;">
-                            <strong>Scenario B:</strong><br>
-                            An officer arrests a person without saying <code>-cuffs-</code> in chat. He jails them without transport, then flees the scene.<br>
-                            <em style="color:var(--text-muted); font-size:0.9rem;">Target Answer: FRP (No RP actions) + Admin Abuse/FailRP depending on rank.</em>
+                            <strong>Scenario B:</strong> Arrest without "cuffs" chat + No Transport + Fleeing.<br>
+                            <em style="color:#9ca3af;">Target: FRP/FailRP + Admin Abuse.</em>
                         </div>
                         <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px;">
-                            <strong>Scenario C:</strong><br>
-                            Player A claims Subject B is RDMing/FRPing. Subject B claims Player A did it first.<br>
-                            <em style="color:var(--text-muted); font-size:0.9rem;">Target Answer: Check Logs/Clips. Remain Neutral. Do not punish without proof.</em>
+                            <strong>Scenario C:</strong> He said/She said (RDM accusation).<br>
+                            <em style="color:#9ca3af;">Target: Check Logs. Remain Neutral. No proof = No punishment.</em>
                         </div>
                     </div>
 
                     <div class="card" style="border-left: 4px solid var(--gold);">
                         <h3 style="color:var(--gold);">3. Chain of Command</h3>
-                        <p>Explain the hierarchy for reporting issues:</p>
-                        <p style="font-family:'JetBrains Mono'; background:#000; padding:10px; border-radius:6px; display:inline-block;">
-                            Jr Mod &rarr; Mod/Sr Mod &rarr; Head Mod &rarr; Admin
-                        </p>
+                        <p>Jr Mod &rarr; Mod/Sr Mod &rarr; Head Mod &rarr; Admin</p>
                     </div>
-
                 </div>
             </div>
 
