@@ -44,7 +44,6 @@
             font-family: 'Manrope', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-            /* Dynamic Background */
             background-image: 
                 radial-gradient(circle at 10% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 90% 100%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
@@ -57,7 +56,6 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
         
-        /* Firefox Scrollbar */
         html { scrollbar-width: thin; scrollbar-color: #333 #000; scroll-behavior: smooth; }
 
         /* =========================================
@@ -115,7 +113,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Scroll Reveal Animation */
         .hidden-el { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
         .show-el { opacity: 1; transform: translateY(0); }
 
@@ -148,7 +145,8 @@
         }
         .card h3 { font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         .card p, .card li { color: #d1d5db; line-height: 1.7; font-size: 0.95rem; }
-        .card ul { padding-left: 20px; margin: 0; }
+        .card ul, .card ol { padding-left: 20px; margin: 0; }
+        .card li { margin-bottom: 8px; }
 
         /* Buttons */
         .btn-primary {
@@ -218,10 +216,21 @@
         .p-admin:hover { border-color: var(--danger); background: rgba(244, 63, 94, 0.05); }
         .p-admin:hover i { color: var(--danger); transform: scale(1.1); }
 
+        /* Access Logs */
+        .access-group { background: #111; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid #333; }
+        .access-header { padding: 15px 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; color: black; }
+        .access-list { padding: 10px 20px; }
+        .access-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #222; }
+        .access-row:last-child { border-bottom: none; }
+        .access-name { font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #fff; }
+        .badge { padding: 4px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+        .badge.allowed { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
+        .badge.denied { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+
         /* Footer */
         footer {
             text-align: center; padding: 40px; color: #444; font-size: 0.85rem;
-            border-top: 1px solid var(--border); margin-top: 80px;
+            border-top: 1px solid var(--border); margin-top: 80px; line-height: 1.6;
         }
         .credit { color: var(--primary); font-weight: 700; text-decoration: none; }
 
@@ -235,6 +244,14 @@
         .auth-input { width: 100%; padding: 14px; margin: 20px 0; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 10px; text-align: center; font-size: 1.1rem; outline: none; }
         .auth-input:focus { border-color: var(--primary); }
         .btn-unlock { width: 100%; background: white; color: black; padding: 12px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+        /* Rank Bars */
+        .rank-bar {
+            padding: 15px 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            margin-bottom: 10px; border-radius: 8px; font-weight: 800; letter-spacing: 1px;
+            border-left: 5px solid; transition: padding-left 0.2s;
+        }
+        .rank-bar:hover { padding-left: 30px; background: rgba(255,255,255,0.06); }
 
         @media (max-width: 768px) {
             nav { overflow-x: auto; white-space: nowrap; padding: 15px; gap: 20px; }
@@ -289,16 +306,21 @@
 
     <div id="coc" class="view">
         <h2><i class="fas fa-sitemap"></i> Chain of Command</h2>
-        <div style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
-            <div style="padding:16px; background:rgba(244,63,94,0.1); border-left:4px solid var(--danger); border-radius:4px; font-weight:800;">FOUNDER</div>
-            <div style="padding:16px; background:rgba(245,158,11,0.1); border-left:4px solid var(--gold); border-radius:4px; font-weight:800;">OWNER / CO-OWNER</div>
-            <div style="padding:16px; background:rgba(14,165,233,0.1); border-left:4px solid var(--accent); border-radius:4px; font-weight:800;">LEADERSHIP BOARD</div>
-            <div style="padding:16px; background:rgba(217, 70, 239, 0.1); border-left:4px solid var(--pink); border-radius:4px; font-weight:700;">DIRECTOR BOARD</div>
-            <div style="padding:16px; background:rgba(99, 102, 241, 0.1); border-left:4px solid var(--primary); border-radius:4px; font-weight:700;">MANAGEMENT BOARD</div>
-            <div style="padding:16px; background:rgba(139, 92, 246, 0.1); border-left:4px solid var(--purple); border-radius:4px; font-weight:700;">INTERNAL AFFAIRS</div>
-            <div style="padding:16px; background:rgba(20, 184, 166, 0.1); border-left:4px solid var(--teal); border-radius:4px; font-weight:600;">SUPERVISORY BOARD</div>
-            <div style="padding:16px; background:rgba(255, 255, 255, 0.05); border-left:4px solid #fff; border-radius:4px; font-weight:600;">ADMINISTRATION BOARD</div>
-            <div style="padding:16px; background:rgba(255, 255, 255, 0.05); border-left:4px solid #aaa; border-radius:4px; font-weight:600;">MODERATION BOARD</div>
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div class="rank-bar" style="border-color: var(--r-founder); color: var(--r-founder);">FOUNDER</div>
+            <div class="rank-bar" style="border-color: var(--r-owner); color: var(--r-owner);">OWNER</div>
+            <div class="rank-bar" style="border-color: var(--r-coowner); color: var(--r-coowner);">CO-OWNER</div>
+            <div class="rank-bar" style="border-color: var(--r-asst); color: var(--r-asst);">ASSISTANT OWNER</div>
+            
+            <div style="height: 20px;"></div>
+            
+            <div class="rank-bar" style="border-color: var(--r-lead); color: var(--r-lead);">LEADERSHIP BOARD</div>
+            <div class="rank-bar" style="border-color: var(--r-dir); color: var(--r-dir);">DIRECTORS BOARD</div>
+            <div class="rank-bar" style="border-color: var(--r-mgmt); color: var(--r-mgmt);">MANAGEMENT BOARD</div>
+            <div class="rank-bar" style="border-color: var(--r-ia); color: var(--r-ia);">INTERNAL AFFAIRS BOARD</div>
+            <div class="rank-bar" style="border-color: var(--r-sup); color: var(--r-sup);">SUPERVISORY BOARD</div>
+            <div class="rank-bar" style="border-color: var(--r-admin); color: var(--r-admin);">ADMINISTRATION BOARD</div>
+            <div class="rank-bar" style="border-color: var(--r-mod); color: var(--r-mod);">MODERATION BOARD</div>
         </div>
     </div>
 
@@ -340,22 +362,22 @@
             <div class="grid">
                 <div class="card">
                     <h3 style="color:var(--accent);">Status Codes</h3>
-                    <table class="table-pro">
-                        <tr><td>10-8</td><td>On Duty</td></tr>
-                        <tr><td>10-7</td><td>Off Duty</td></tr>
-                        <tr><td>10-6</td><td>Busy</td></tr>
-                        <tr><td>10-20</td><td>Location</td></tr>
-                        <tr><td>10-23</td><td>Arrived on Scene</td></tr>
-                    </table>
+                    <ul>
+                        <li><strong>10-8:</strong> On Duty</li>
+                        <li><strong>10-7:</strong> Off Duty</li>
+                        <li><strong>10-6:</strong> Busy</li>
+                        <li><strong>10-20:</strong> Location</li>
+                        <li><strong>10-23:</strong> Arrived on Scene</li>
+                    </ul>
                 </div>
                 <div class="card">
                     <h3 style="color:var(--danger);">Emergency Codes</h3>
-                    <table class="table-pro">
-                        <tr><td>Code 3</td><td>Lights & Sirens</td></tr>
-                        <tr><td>Code 4</td><td>Scene Clear</td></tr>
-                        <tr><td>10-80</td><td>Vehicle Pursuit</td></tr>
-                        <tr><td>Signal 100</td><td>Hold Radio Traffic</td></tr>
-                    </table>
+                    <ul>
+                        <li><strong>Code 3:</strong> Lights & Sirens</li>
+                        <li><strong>Code 4:</strong> Scene Clear</li>
+                        <li><strong>10-80:</strong> Vehicle Pursuit</li>
+                        <li><strong>Signal 100:</strong> Hold Radio Traffic</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -520,56 +542,127 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="tab('secure-train', 't-guide')">Guide</button>
             <button class="tab-btn" onclick="tab('secure-train', 't-script')">Scripts</button>
+            <button class="tab-btn" onclick="tab('secure-train', 't-grade')">Grading</button>
         </div>
 
         <div id="t-guide" class="tab-content active">
-            <div class="card">
-                <h3>Process</h3>
-                <ol style="margin-left:20px; color:#d1d5db; line-height:1.8;">
-                    <li><strong>Phase 1:</strong> Intro & Rules Quiz.</li>
-                    <li><strong>Phase 2:</strong> Scenarios (Traffic Stop, Mod Call).</li>
-                    <li><strong>Phase 3:</strong> Exam & Ride-Along.</li>
-                </ol>
+            <div class="grid">
+                <div class="card">
+                    <h3>Phase 1: Theory</h3>
+                    <p>Test the trainee on basic server rules, 10-codes, and staff commands.</p>
+                    <ol>
+                        <li>Ask 5 General Rules.</li>
+                        <li>Ask 5 10-Codes.</li>
+                        <li>Ask "What does :m do vs :h?".</li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <h3>Phase 2: Scenarios</h3>
+                    <p>Roleplay scenarios to test their reaction.</p>
+                    <ul>
+                        <li><strong>Traffic Stop:</strong> You are a civilian. Have them pull you over.</li>
+                        <li><strong>RDM Report:</strong> Simulate a user reporting RDM. Watch how they handle it.</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div id="t-script" class="tab-content">
             <div class="cmd-box">
-                <span class="cmd-code">Hello, I am [Name], your trainer. Any questions?</span>
+                <div class="cmd-info">
+                    <span class="cmd-label">Intro</span>
+                    <span class="cmd-code">Hello, I am [Name], your trainer. Do you have any questions before we begin?</span>
+                </div>
                 <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
             </div>
             <div class="cmd-box">
-                <span class="cmd-code">Congrats! You passed Phase 1.</span>
+                <div class="cmd-info">
+                    <span class="cmd-label">Pass</span>
+                    <span class="cmd-code">Congratulations! You have passed Phase 1. Please wait here for the next instructor.</span>
+                </div>
                 <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+            <div class="cmd-box">
+                <div class="cmd-info">
+                    <span class="cmd-label">Fail</span>
+                    <span class="cmd-code">Unfortunately, you have not passed this session. You may re-apply in 24 hours.</span>
+                </div>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+        </div>
+
+        <div id="t-grade" class="tab-content">
+            <div class="card">
+                <h3>Pass Requirements</h3>
+                <ul>
+                    <li>Must answer 4/5 Rules correctly.</li>
+                    <li>Must answer 4/5 Codes correctly.</li>
+                    <li>Must not use "All" commands.</li>
+                    <li>Must show professionalism at all times.</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div id="secure-hr" class="view">
         <h2><i class="fas fa-gavel"></i> HR Management</h2>
-        <div class="grid">
-            <div class="card" style="border-top:4px solid var(--gold);">
-                <h3>⚠️ Warning</h3>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="tab('secure-hr', 'h-disc')">Discipline</button>
+            <button class="tab-btn" onclick="tab('secure-hr', 'h-rules')">HR Rules</button>
+            <button class="tab-btn" onclick="tab('secure-hr', 'h-promo')">Promotions</button>
+        </div>
+
+        <div id="h-disc" class="tab-content active">
+            <div class="grid">
+                <div class="card" style="border-top:4px solid var(--gold);">
+                    <h3>⚠️ Warning</h3>
+                    <ul>
+                        <li>Wrong Uniform</li>
+                        <li>Off-duty Commands</li>
+                        <li>Inactive 4+ Days</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-top:4px solid var(--danger);">
+                    <h3>❌ Strike</h3>
+                    <ul>
+                        <li>Disrespecting HR</li>
+                        <li>No SPaG (3x)</li>
+                        <li>Major Command Abuse</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-top:4px solid #991b1b;">
+                    <h3>🚫 Termination</h3>
+                    <ul>
+                        <li>Inactive 25+ Days</li>
+                        <li>Admin Power Abuse</li>
+                        <li>Severe Toxicity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="h-rules" class="tab-content">
+            <div class="card">
+                <h3>High Rank Protocols</h3>
                 <ul>
-                    <li>Wrong Uniform</li>
-                    <li>Off-duty Commands</li>
-                    <li>Inactive 4+ Days</li>
+                    <li><strong>Lead by Example:</strong> You must follow every rule you enforce.</li>
+                    <li><strong>Bias:</strong> Do not favor friends in disputes. This leads to immediate removal.</li>
+                    <li><strong>Leaking:</strong> Sharing staff chat screenshots is an instant ban.</li>
+                    <li><strong>SSU:</strong> HRs are required to host at least 1 SSU per week.</li>
                 </ul>
             </div>
-            <div class="card" style="border-top:4px solid var(--danger);">
-                <h3>❌ Strike</h3>
+        </div>
+
+        <div id="h-promo" class="tab-content">
+            <div class="card">
+                <h3>Promotion Guidelines</h3>
+                <p>When considering a staff member for promotion:</p>
                 <ul>
-                    <li>Disrespecting HR</li>
-                    <li>No SPaG (3x)</li>
-                    <li>Major Command Abuse</li>
-                </ul>
-            </div>
-            <div class="card" style="border-top:4px solid #991b1b;">
-                <h3>🚫 Termination</h3>
-                <ul>
-                    <li>Inactive 25+ Days</li>
-                    <li>Admin Power Abuse</li>
-                    <li>Severe Toxicity</li>
+                    <li><strong>Activity:</strong> Must have high activity for 2 weeks straight.</li>
+                    <li><strong>Tickets:</strong> Must have handled 10+ tickets successfully.</li>
+                    <li><strong>Attitude:</strong> Must be helpful, not just punitive.</li>
+                    <li><strong>Logging:</strong> Check Melonly to ensure they log all actions.</li>
                 </ul>
             </div>
         </div>
@@ -577,6 +670,7 @@
 
     <div id="secure-admin" class="view">
         <h2><i class="fas fa-database"></i> Admin Control</h2>
+        
         <div class="grid" style="margin-bottom:40px;">
             <div class="card">
                 <h3>Media Responses</h3>
@@ -588,17 +682,71 @@
             </div>
         </div>
         
-        <h3>Access Log</h3>
-        <table class="table-pro">
-            <tr><td>RealisticRoleplayer8</td><td>FOUNDER</td><td style="color:var(--success);">GRANTED</td></tr>
-            <tr><td>Ibrokethetown</td><td>FOUNDER</td><td style="color:var(--success);">GRANTED</td></tr>
-            <tr><td>joecool822</td><td>OWNER</td><td style="color:var(--danger);">DENIED</td></tr>
-        </table>
+        <div class="access-group">
+            <div class="access-header" style="background: var(--r-founder);">FOUNDER</div>
+            <div class="access-list">
+                <div class="access-row">
+                    <span class="access-name">F-01 | RealisticRoleplayer8</span>
+                    <span class="badge allowed">ALLOWED</span>
+                </div>
+                <div class="access-row">
+                    <span class="access-name">F-02 | Fatblackmonki1</span>
+                    <span class="badge allowed">ALLOWED</span>
+                </div>
+                <div class="access-row">
+                    <span class="access-name">F-03 | Ibrokethetown</span>
+                    <span class="badge allowed">ALLOWED</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="access-group">
+            <div class="access-header" style="background: var(--r-owner);">OWNER</div>
+            <div class="access-list">
+                <div class="access-row">
+                    <span class="access-name">O | joecool822</span>
+                    <span class="badge denied">DENIED</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="access-group">
+            <div class="access-header" style="background: var(--r-coowner);">CO OWNER</div>
+            <div class="access-list">
+                <div class="access-row">
+                    <span class="access-name">CO-05 | Roblox</span>
+                    <span class="badge allowed">ALLOWED</span>
+                </div>
+                <div class="access-row">
+                    <span class="access-name">CO | Bentoki92</span>
+                    <span class="badge allowed">ALLOWED</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="access-group">
+            <div class="access-header" style="background: var(--r-asst);">ASSISTANT OWNER</div>
+            <div class="access-list">
+                <div class="access-row">
+                    <span class="access-name">AO | killepro98thomas</span>
+                    <span class="badge allowed">ALLOWED</span>
+                </div>
+                <div class="access-row">
+                    <span class="access-name">AO | jehema3456</span>
+                    <span class="badge denied">DENIED</span>
+                </div>
+                <div class="access-row">
+                    <span class="access-name">AO | Ch4os_4her</span>
+                    <span class="badge denied">DENIED</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
-        &copy; 2025 NMSRP. <br>
-        Website made by <a href="#" class="credit">Shanting_op</a>
+        &copy; 2025 Shanting_op. All Rights Reserved.<br>
+        Lead Developer: <a href="#" class="credit">Shanting_op</a> &bull; Helper: <span class="credit">andrew6_7</span>
     </footer>
 
     <div id="auth-modal">
@@ -649,7 +797,6 @@
         function verify() {
             const val = document.getElementById('auth-input').value;
             let ok = false;
-            // PASSWORDS
             if(targetPortal === 'staff' && val === 'Staff123') ok = true;
             if(targetPortal === 'train' && val === 'Train456') ok = true;
             if(targetPortal === 'hr' && val === 'HighRank789') ok = true;
