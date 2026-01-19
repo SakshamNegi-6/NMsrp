@@ -3,289 +3,695 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server Roster with Access</title>
+    <title>New Mexico State Roleplay | Official Portal</title>
+    <meta name="description" content="Official website for NMSRP - The premier Emergency Response: Liberty County roleplay community.">
+    <link rel="icon" href="https://cdn.discordapp.com/icons/1363177842187174040/4d4e7e0d91750c23522a6c9741fcf7fe.png?size=512">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        /* =========================================
+           THEME: COMMAND CENTER (NMSRP PRO)
+           ========================================= */
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(20, 20, 25, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --highlight: rgba(255, 255, 255, 0.05);
+            
+            /* Rank & UI Colors */
+            --primary: #6366f1; /* Indigo */
+            --accent: #0ea5e9;  /* Sky */
+            --success: #10b981; /* Emerald */
+            --danger: #f43f5e;  /* Rose */
+            --gold: #f59e0b;    /* Amber */
+            --pink: #d946ef;    /* Fuchsia */
+            --purple: #8b5cf6;  /* Violet */
+            --teal: #14b8a6;    /* Teal */
+            
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            
+            --blur: 20px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f0f13;
-            color: #ffffff;
-            margin: 0;
-            padding: 60px 20px;
-            display: flex;
-            justify-content: center;
-            background-image: radial-gradient(circle at 50% 0%, #2a2a35 0%, #0f0f13 70%);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Manrope', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* Dynamic Background */
+            background-image: 
+                radial-gradient(circle at 10% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 100%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        
+        /* Firefox Scrollbar */
+        html { scrollbar-width: thin; scrollbar-color: #333 #000; scroll-behavior: smooth; }
+
+        /* =========================================
+           NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 40px;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(var(--blur));
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
         }
+
+        .brand {
+            display: flex; align-items: center; gap: 12px;
+            font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+        .brand img {
+            width: 38px; height: 38px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .brand:hover img { transform: rotate(360deg); }
+
+        .nav-menu { display: flex; gap: 5px; }
+
+        .nav-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            padding: 10px 20px; border-radius: 8px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; font-size: 0.9rem;
+        }
+        .nav-btn:hover { color: white; background: var(--highlight); }
+        .nav-btn.active { background: rgba(255,255,255,0.1); color: white; }
+
+        .btn-lock {
+            border: 1px solid rgba(244, 63, 94, 0.3) !important;
+            color: var(--danger) !important; margin-left: 15px;
+        }
+        .btn-lock:hover {
+            background: rgba(244, 63, 94, 0.1) !important;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
+        }
+
+        /* =========================================
+           LAYOUT & ANIMATION
+           ========================================= */
+        .view {
+            max-width: 1200px; margin: 100px auto 60px; padding: 0 20px;
+            display: none; animation: fadeIn 0.5s ease;
+        }
+        .view.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Scroll Reveal Animation */
+        .hidden-el { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .show-el { opacity: 1; transform: translateY(0); }
 
         h1 {
-            text-align: center;
-            font-weight: 800;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, #aaa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3.8rem; font-weight: 800; text-align: center;
+            letter-spacing: -1px; margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 50px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        h2 {
+            font-size: 2rem; border-bottom: 1px solid var(--border);
+            padding-bottom: 15px; margin-bottom: 30px;
+            display: flex; align-items: center; gap: 15px;
         }
 
-        .role-group {
-            margin-bottom: 30px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #18181b;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.2s ease;
+        /* =========================================
+           COMPONENTS
+           ========================================= */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 30px; transition: all 0.3s;
+            position: relative; overflow: hidden;
         }
-
-        .role-group:hover {
-            transform: translateY(-2px);
+        .card:hover {
+            transform: translateY(-5px); border-color: rgba(255,255,255,0.2);
+            background: rgba(30, 30, 35, 0.8); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+        .card h3 { font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .card p, .card li { color: #d1d5db; line-height: 1.7; font-size: 0.95rem; }
+        .card ul { padding-left: 20px; margin: 0; }
 
-        .role-header {
-            padding: 15px 25px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--primary); color: white; text-decoration: none;
+            padding: 16px 40px; border-radius: 12px; font-weight: 700;
+            transition: transform 0.2s; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
         }
+        .btn-primary:hover { transform: translateY(-2px); }
 
-        .header-badge {
-            background: rgba(0,0,0,0.2);
-            color: inherit;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
+        .btn-full {
+            display: block; width: 100%; text-align: center; padding: 12px;
+            border-radius: 8px; text-decoration: none; font-weight: 700;
+            border: 1px solid var(--border); transition: all 0.2s; margin-top: 15px;
         }
-
-        /* COLOR THEMES */
-        .founder .role-header { background: linear-gradient(135deg, #ff4757, #ff6b81); box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); color: white; }
-        .owner .role-header { background: linear-gradient(135deg, #ffa502, #ffc048); box-shadow: 0 0 15px rgba(255, 165, 2, 0.4); color: #2d3436; }
-        .co-owner .role-header { background: linear-gradient(135deg, #eccc68, #ffeaa7); box-shadow: 0 0 15px rgba(236, 204, 104, 0.4); color: #2d3436; }
-        .assistant .role-header { background: linear-gradient(135deg, #1e90ff, #70a1ff); box-shadow: 0 0 15px rgba(30, 144, 255, 0.4); color: white; }
-
-        .member-list {
-            padding: 5px 0;
+        
+        /* Tabs */
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            color: var(--text-muted); padding: 12px 24px; border-radius: 30px;
+            cursor: pointer; font-weight: 600; transition: all 0.3s;
         }
+        .tab-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+        .tab-btn.active { background: var(--text-main); color: black; border-color: white; box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
+        
+        .tab-content { display: none; animation: fadeIn 0.4s; }
+        .tab-content.active { display: block; }
 
-        .member {
-            padding: 16px 25px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 100px;
-            align-items: center;
-            border-bottom: 1px solid #27272a;
+        /* Tables */
+        .table-pro { width: 100%; border-collapse: separate; border-spacing: 0 5px; }
+        .table-pro td { background: rgba(255,255,255,0.02); padding: 14px; border: 1px solid var(--border); }
+        .table-pro td:first-child { border-radius: 8px 0 0 8px; font-family: 'JetBrains Mono'; color: var(--accent); font-weight: 700; }
+        .table-pro td:last-child { border-radius: 0 8px 8px 0; }
+
+        /* Command Box */
+        .cmd-box {
+            background: #09090b; border: 1px solid #27272a; padding: 18px;
+            border-radius: 12px; margin-bottom: 15px; display: flex;
+            justify-content: space-between; align-items: center;
         }
+        .cmd-info { display: flex; flex-direction: column; gap: 5px; }
+        .cmd-label { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+        .cmd-code { font-family: 'JetBrains Mono'; color: #e4e4e7; font-size: 0.95rem; }
+        .btn-copy { color: #52525b; cursor: pointer; transition: 0.2s; }
+        .btn-copy:hover { color: white; }
 
-        .member:last-child {
-            border-bottom: none;
+        /* Portals */
+        .portal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; }
+        .portal {
+            padding: 40px; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; text-align: center; cursor: pointer; transition: all 0.3s;
+            position: relative; overflow: hidden;
         }
+        .portal i { font-size: 2.5rem; margin-bottom: 15px; color: var(--text-muted); transition: 0.3s; }
+        
+        /* Colored Portal Buttons */
+        .p-staff:hover { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+        .p-staff:hover i { color: var(--success); transform: scale(1.1); }
+        
+        .p-train:hover { border-color: var(--accent); background: rgba(14, 165, 233, 0.05); }
+        .p-train:hover i { color: var(--accent); transform: scale(1.1); }
+        
+        .p-hr:hover { border-color: var(--purple); background: rgba(139, 92, 246, 0.05); }
+        .p-hr:hover i { color: var(--purple); transform: scale(1.1); }
+        
+        .p-admin:hover { border-color: var(--danger); background: rgba(244, 63, 94, 0.05); }
+        .p-admin:hover i { color: var(--danger); transform: scale(1.1); }
 
-        .name {
-            font-weight: 600;
-            font-size: 1rem;
-            color: #ececec;
+        /* Footer */
+        footer {
+            text-align: center; padding: 40px; color: #444; font-size: 0.85rem;
+            border-top: 1px solid var(--border); margin-top: 80px;
         }
+        .credit { color: var(--primary); font-weight: 700; text-decoration: none; }
 
-        .tag {
-            font-family: 'Courier New', monospace;
-            color: #71717a;
-            font-size: 0.85rem;
+        /* Modal */
+        #auth-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); z-index: 2000;
+            justify-content: center; align-items: center;
         }
+        .auth-box { background: #0a0a0a; padding: 40px; border-radius: 20px; border: 1px solid #333; width: 320px; text-align: center; }
+        .auth-input { width: 100%; padding: 14px; margin: 20px 0; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 10px; text-align: center; font-size: 1.1rem; outline: none; }
+        .auth-input:focus { border-color: var(--primary); }
+        .btn-unlock { width: 100%; background: white; color: black; padding: 12px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
-        /* ACCESS STATUS STYLES */
-        .status {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 6px 0;
-            border-radius: 6px;
-            width: 100%;
-        }
-
-        .allowed {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ecc71;
-            border: 1px solid rgba(46, 204, 113, 0.3);
-            box-shadow: 0 0 10px rgba(46, 204, 113, 0.1);
-        }
-
-        .denied {
-            background: rgba(231, 76, 60, 0.1);
-            color: #e74c3c;
-            border: 1px solid rgba(231, 76, 60, 0.2);
-            opacity: 0.7;
-        }
-
-        /* QUICK LINKS SECTION */
-        .links-section {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .link-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .link-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .link-icon {
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        @media print {
-            body { background: white; color: black; }
-            .container { box-shadow: none; border: none; }
-            .name { color: #000; }
-            .tag { color: #555; }
-            .allowed { border: 2px solid #2ecc71; color: #2ecc71; -webkit-print-color-adjust: exact; }
-            .denied { border: 1px solid #e74c3c; color: #e74c3c; -webkit-print-color-adjust: exact; }
-            .links-section { display: none; } /* Hides buttons when printing to PDF */
+        @media (max-width: 768px) {
+            nav { overflow-x: auto; white-space: nowrap; padding: 15px; gap: 20px; }
+            .portal-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>SERVER ROSTER</h1>
-        <div class="subtitle">Official Staff Hierarchy & Permissions</div>
-
-        <div class="role-group founder">
-            <div class="role-header">
-                <span>Founder</span>
-                <span class="header-badge">3</span>
-            </div>
-            <div class="member-list">
-                <div class="member">
-                    <span class="name">F-01 | RealisticRoleplayer8</span>
-                    <span class="tag">@l1terally_anderson</span>
-                    <span class="status allowed">Allowed</span>
-                </div>
-                <div class="member">
-                    <span class="name">F-02 | Fatblackmonki1</span>
-                    <span class="tag">@fatblackmonki1</span>
-                    <span class="status denied">Denied</span>
-                </div>
-                <div class="member">
-                    <span class="name">F-03 | Ibrokethetown</span>
-                    <span class="tag">@mikeytrovv</span>
-                    <span class="status allowed">Allowed</span>
-                </div>
-            </div>
+    <nav>
+        <div class="brand" onclick="route('home')">
+            <img src="https://cdn.discordapp.com/icons/1363177842187174040/4d4e7e0d91750c23522a6c9741fcf7fe.png?size=512" alt="Logo">
+            <span>NMSRP</span>
         </div>
-
-        <div class="role-group owner">
-            <div class="role-header">
-                <span>Owner</span>
-                <span class="header-badge">1</span>
-            </div>
-            <div class="member-list">
-                <div class="member">
-                    <span class="name">O | joecool822</span>
-                    <span class="tag">@brandon822</span>
-                    <span class="status denied">Denied</span>
-                </div>
-            </div>
+        <div class="nav-menu">
+            <button class="nav-btn active" onclick="route('home')">Home</button>
+            <button class="nav-btn" onclick="route('coc')">Hierarchy</button>
+            <button class="nav-btn" onclick="route('rules')">Regulations</button>
+            <button class="nav-btn" onclick="route('apply')">Careers</button>
+            <button class="nav-btn btn-lock" onclick="route('portals')"><i class="fas fa-shield-halved"></i> Staff</button>
         </div>
+    </nav>
 
-        <div class="role-group co-owner">
-            <div class="role-header">
-                <span>Co Owner</span>
-                <span class="header-badge">2</span>
-            </div>
-            <div class="member-list">
-                <div class="member">
-                    <span class="name">CO-05 | Roblox</span>
-                    <span class="tag">@shanting_op</span>
-                    <span class="status allowed">Allowed</span>
-                </div>
-                <div class="member">
-                    <span class="name">CO | Bentoki92</span>
-                    <span class="tag">@82pxx</span>
-                    <span class="status allowed">Allowed</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="role-group assistant">
-            <div class="role-header">
-                <span>Assistant Owner</span>
-                <span class="header-badge">3</span>
-            </div>
-            <div class="member-list">
-                <div class="member">
-                    <span class="name">AO | killepro98thomas</span>
-                    <span class="tag">@killwerpro</span>
-                    <span class="status allowed">Allowed</span>
-                </div>
-                <div class="member">
-                    <span class="name">AO | jehema3456</span>
-                    <span class="tag">@pixelation24</span>
-                    <span class="status denied">Denied</span>
-                </div>
-                <div class="member">
-                    <span class="name">AO | Ch4os_4her</span>
-                    <span class="tag">@sukuna_malovelentshrine</span>
-                    <span class="status denied">Denied</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="links-section">
-            <a href="https://docs.google.com/forms/d/1V3zrc4GofL62HK-bQ-8_E_xFPhkb2ryH72aQg6I3N64/edit#responses" target="_blank" class="link-card">
-                <span class="link-icon">📊</span> Media Response
-            </a>
-            <a href="https://docs.google.com/forms/d/1fo6OkfPGr_fDlevecJxHuNA0Wg9HpBsTllbV7QPQNLY/edit#responses" target="_blank" class="link-card">
-                <span class="link-icon">📑</span> IA Response
+    <div id="home" class="view active">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h1 class="hidden-el">New Mexico State Roleplay</h1>
+            <p style="color:var(--text-muted); font-size:1.2rem; max-width:600px; margin:0 auto 40px;" class="hidden-el">
+                The premier Emergency Response: Liberty County community. <br>
+                Professional Staff. Realistic Protocols. 24/7 Activity.
+            </p>
+            <a href="https://discord.gg/nmsrp" target="_blank" class="btn-primary hidden-el">
+                <i class="fab fa-discord"></i> Join Discord
             </a>
         </div>
 
+        <div class="grid">
+            <div class="card hidden-el">
+                <h3><i class="fas fa-user-shield" style="color:var(--primary);"></i> Professional Staff</h3>
+                <p>Zero tolerance for trolling. Our hand-picked team ensures a fair, high-quality roleplay environment 24/7.</p>
+            </div>
+            <div class="card hidden-el">
+                <h3><i class="fas fa-building" style="color:var(--accent);"></i> Realism First</h3>
+                <p>Strict roleplay standards. From businesses to criminal empires, experience a living economy.</p>
+            </div>
+            <div class="card hidden-el">
+                <h3><i class="fas fa-server" style="color:var(--success);"></i> Daily Operations</h3>
+                <p>Frequent SSUs (Server Start Ups), priority cooldowns, and organized department patrols every day.</p>
+            </div>
+        </div>
     </div>
+
+    <div id="coc" class="view">
+        <h2><i class="fas fa-sitemap"></i> Chain of Command</h2>
+        <div style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+            <div style="padding:16px; background:rgba(244,63,94,0.1); border-left:4px solid var(--danger); border-radius:4px; font-weight:800;">FOUNDER</div>
+            <div style="padding:16px; background:rgba(245,158,11,0.1); border-left:4px solid var(--gold); border-radius:4px; font-weight:800;">OWNER / CO-OWNER</div>
+            <div style="padding:16px; background:rgba(14,165,233,0.1); border-left:4px solid var(--accent); border-radius:4px; font-weight:800;">LEADERSHIP BOARD</div>
+            <div style="padding:16px; background:rgba(217, 70, 239, 0.1); border-left:4px solid var(--pink); border-radius:4px; font-weight:700;">DIRECTOR BOARD</div>
+            <div style="padding:16px; background:rgba(99, 102, 241, 0.1); border-left:4px solid var(--primary); border-radius:4px; font-weight:700;">MANAGEMENT BOARD</div>
+            <div style="padding:16px; background:rgba(139, 92, 246, 0.1); border-left:4px solid var(--purple); border-radius:4px; font-weight:700;">INTERNAL AFFAIRS</div>
+            <div style="padding:16px; background:rgba(20, 184, 166, 0.1); border-left:4px solid var(--teal); border-radius:4px; font-weight:600;">SUPERVISORY BOARD</div>
+            <div style="padding:16px; background:rgba(255, 255, 255, 0.05); border-left:4px solid #fff; border-radius:4px; font-weight:600;">ADMINISTRATION BOARD</div>
+            <div style="padding:16px; background:rgba(255, 255, 255, 0.05); border-left:4px solid #aaa; border-radius:4px; font-weight:600;">MODERATION BOARD</div>
+        </div>
+    </div>
+
+    <div id="rules" class="view">
+        <h2><i class="fas fa-book"></i> Official Regulations</h2>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="tab('rules', 'r-gen')">General</button>
+            <button class="tab-btn" onclick="tab('rules', 'r-codes')">Radio Codes</button>
+            <button class="tab-btn" onclick="tab('rules', 'r-disc')">Discord</button>
+            <button class="tab-btn" onclick="tab('rules', 'r-dept')">Departments</button>
+        </div>
+
+        <div id="r-gen" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color:var(--danger);">Core Rules</h3>
+                    <ul>
+                        <li><strong>FailRP:</strong> Unrealistic actions (e.g., flipping car mid-air).</li>
+                        <li><strong>FearRP:</strong> Value your life when threatened (gun to head).</li>
+                        <li><strong>NLR:</strong> Forget last 15 mins after death. Do not return to scene.</li>
+                        <li><strong>Metagaming:</strong> Using OOC info (Discord/Stream) in-game.</li>
+                        <li><strong>Powergaming:</strong> Forcing RP on others without giving them a chance to react.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color:var(--gold);">Criminal Limits</h3>
+                    <ul>
+                        <li><strong>Mafia:</strong> Max 4 members.</li>
+                        <li><strong>Bank Heist:</strong> Min 2 Cops online.</li>
+                        <li><strong>Priority Cooldown:</strong> 15 mins between major crimes.</li>
+                        <li><strong>Kidnapping:</strong> Requires staff ticket approval.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="r-codes" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color:var(--accent);">Status Codes</h3>
+                    <table class="table-pro">
+                        <tr><td>10-8</td><td>On Duty</td></tr>
+                        <tr><td>10-7</td><td>Off Duty</td></tr>
+                        <tr><td>10-6</td><td>Busy</td></tr>
+                        <tr><td>10-20</td><td>Location</td></tr>
+                        <tr><td>10-23</td><td>Arrived on Scene</td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3 style="color:var(--danger);">Emergency Codes</h3>
+                    <table class="table-pro">
+                        <tr><td>Code 3</td><td>Lights & Sirens</td></tr>
+                        <tr><td>Code 4</td><td>Scene Clear</td></tr>
+                        <tr><td>10-80</td><td>Vehicle Pursuit</td></tr>
+                        <tr><td>Signal 100</td><td>Hold Radio Traffic</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="r-disc" class="tab-content">
+            <div class="card">
+                <h3>Community Guidelines</h3>
+                <ul>
+                    <li><strong>No Mini-Modding:</strong> Let staff handle issues.</li>
+                    <li><strong>Advertising:</strong> DM ads = Permanent Ban.</li>
+                    <li><strong>Respect:</strong> Zero tolerance for toxicity/slurs.</li>
+                    <li><strong>Doxxing:</strong> Instant blacklist and report to Discord T&S.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="r-dept" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color:var(--primary);">LSPD & BCSO</h3>
+                    <ul>
+                        <li><strong>LSPD:</strong> City limits only.</li>
+                        <li><strong>BCSO:</strong> County & Sandy Shores.</li>
+                        <li><strong>Pursuits:</strong> No ramming unless speeds < 50 MPH.</li>
+                        <li><strong>Uniforms:</strong> Official EUP mandatory.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color:var(--danger);">SAFD & DOT</h3>
+                    <ul>
+                        <li><strong>SAFD:</strong> Ladder trucks for high-rise calls only.</li>
+                        <li><strong>DOT:</strong> Cannot tow active scene cars without PD request.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="apply" class="view">
+        <h2><i class="fas fa-briefcase"></i> Careers</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🛡️ Staff Team</h3>
+                <p>Maintain order. Dedication required.</p>
+                <a href="https://forms.gle/RCBMPfSLYwFnJgB6A" target="_blank" class="btn-full" style="color:var(--success); border-color:var(--success);">Apply Now</a>
+            </div>
+            <div class="card">
+                <h3>📸 Media Team</h3>
+                <p>Create content and manage socials.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScoD07vcZMjLnC157qO3-Gn-ZwKDNA117v3JLF4e90vAM_yxA/viewform" target="_blank" class="btn-full" style="color:var(--accent); border-color:var(--accent);">Apply Now</a>
+            </div>
+            <div class="card">
+                <h3>🕵️ Internal Affairs</h3>
+                <p>Investigate corruption.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFBKp-GacVi2b9aNUOZq9Z8JBWNH7aFyi68aKXaEtswJjfoA/viewform" target="_blank" class="btn-full" style="color:#dcdcdc; border-color:#dcdcdc;">Apply Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="portals" class="view">
+        <h2 style="justify-content:center;">Secure Access</h2>
+        <div class="portal-grid">
+            <div class="portal p-staff" onclick="auth('staff')">
+                <i class="fas fa-id-card"></i>
+                <h4>Staff Portal</h4>
+            </div>
+            <div class="portal p-train" onclick="auth('train')">
+                <i class="fas fa-chalkboard-user"></i>
+                <h4>Trainer Portal</h4>
+            </div>
+            <div class="portal p-hr" onclick="auth('hr')">
+                <i class="fas fa-user-tie"></i>
+                <h4>High Rank</h4>
+            </div>
+            <div class="portal p-admin" onclick="auth('admin')">
+                <i class="fas fa-server"></i>
+                <h4>Admin Panel</h4>
+            </div>
+        </div>
+    </div>
+
+    <div id="secure-staff" class="view">
+        <h2><i class="fas fa-laptop-code"></i> Staff Dashboard</h2>
+        
+        <a href="https://melon.ly/join/BBYBEP" target="_blank" class="btn-primary" style="width:100%; justify-content:center; margin-bottom:30px; background:linear-gradient(90deg, #10b981, #059669);">
+            <i class="fas fa-external-link-alt"></i> LAUNCH MELONLY
+        </a>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="tab('secure-staff', 's-guide')">Handbook</button>
+            <button class="tab-btn" onclick="tab('secure-staff', 's-cmd')">Commands</button>
+            <button class="tab-btn" onclick="tab('secure-staff', 's-pol')">Policies</button>
+        </div>
+
+        <div id="s-guide" class="tab-content active">
+            <div class="card">
+                <h3>Expectations</h3>
+                <ul>
+                    <li><strong>Professionalism:</strong> Always use proper SPaG.</li>
+                    <li><strong>Activity:</strong> 4 hours/week minimum.</li>
+                    <li><strong>Tickets:</strong> Respond within 12 hours.</li>
+                    <li><strong>Respect:</strong> Do not argue in chat. Take it to DMs.</li>
+                    <li><strong>Intervention:</strong> Do not interfere in active scenes unless a rule is broken.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="s-cmd" class="tab-content">
+            <div class="cmd-box">
+                <div class="cmd-info">
+                    <span class="cmd-label">3 Guys Hiring</span>
+                    <span class="cmd-code">Do you need money💵?🍗 Three Guys is hiring cashiers, come at the location for an interview📑.</span>
+                </div>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+            <div class="cmd-box">
+                <div class="cmd-info">
+                    <span class="cmd-label">Real Estate Ad</span>
+                    <span class="cmd-code">Want to buy a house for your family🏠 ?come to the House Suburbs🏘️  and you will find the best house for you or for your family👩‍👩‍👧‍👧 .</span>
+                </div>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+            <div class="cmd-box">
+                <div class="cmd-info">
+                    <span class="cmd-label">Welcome</span>
+                    <span class="cmd-code">:h 👋 Welcome to NMSRP! Join comms code 'NMSRP'.</span>
+                </div>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+            <div class="cmd-box">
+                <div class="cmd-info">
+                    <span class="cmd-label">Taxi Service</span>
+                    <span class="cmd-code">:h 🚕 Taxi Service is active! Call 555-TAXI.</span>
+                </div>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+            <div class="cmd-box">
+                <div class="cmd-info">
+                    <span class="cmd-label">Shutdown</span>
+                    <span class="cmd-code">:m ⛔️ Server Shutdown. Thanks for playing!</span>
+                </div>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+        </div>
+
+        <div id="s-pol" class="tab-content">
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--danger);">
+                    <h3 style="color:var(--danger);">"Anti-Cringe" Policy</h3>
+                    <p>Excessive swearing, "6-7" jokes, and the "🥀" emoji are prohibited. Immediate verbal warning.</p>
+                </div>
+                <div class="card">
+                    <h3>Corruption Policy</h3>
+                    <p>Using commands for personal gain (e.g. :tp to avoid arrest) = Instant Demotion.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="secure-train" class="view">
+        <h2><i class="fas fa-graduation-cap"></i> Training Division</h2>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="tab('secure-train', 't-guide')">Guide</button>
+            <button class="tab-btn" onclick="tab('secure-train', 't-script')">Scripts</button>
+        </div>
+
+        <div id="t-guide" class="tab-content active">
+            <div class="card">
+                <h3>Process</h3>
+                <ol style="margin-left:20px; color:#d1d5db; line-height:1.8;">
+                    <li><strong>Phase 1:</strong> Intro & Rules Quiz.</li>
+                    <li><strong>Phase 2:</strong> Scenarios (Traffic Stop, Mod Call).</li>
+                    <li><strong>Phase 3:</strong> Exam & Ride-Along.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="t-script" class="tab-content">
+            <div class="cmd-box">
+                <span class="cmd-code">Hello, I am [Name], your trainer. Any questions?</span>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+            <div class="cmd-box">
+                <span class="cmd-code">Congrats! You passed Phase 1.</span>
+                <i class="fas fa-copy btn-copy" onclick="copyText(this)"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="secure-hr" class="view">
+        <h2><i class="fas fa-gavel"></i> HR Management</h2>
+        <div class="grid">
+            <div class="card" style="border-top:4px solid var(--gold);">
+                <h3>⚠️ Warning</h3>
+                <ul>
+                    <li>Wrong Uniform</li>
+                    <li>Off-duty Commands</li>
+                    <li>Inactive 4+ Days</li>
+                </ul>
+            </div>
+            <div class="card" style="border-top:4px solid var(--danger);">
+                <h3>❌ Strike</h3>
+                <ul>
+                    <li>Disrespecting HR</li>
+                    <li>No SPaG (3x)</li>
+                    <li>Major Command Abuse</li>
+                </ul>
+            </div>
+            <div class="card" style="border-top:4px solid #991b1b;">
+                <h3>🚫 Termination</h3>
+                <ul>
+                    <li>Inactive 25+ Days</li>
+                    <li>Admin Power Abuse</li>
+                    <li>Severe Toxicity</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="secure-admin" class="view">
+        <h2><i class="fas fa-database"></i> Admin Control</h2>
+        <div class="grid" style="margin-bottom:40px;">
+            <div class="card">
+                <h3>Media Responses</h3>
+                <a href="https://docs.google.com/forms/d/1V3zrc4GofL62HK-bQ-8_E_xFPhkb2ryH72aQg6I3N64/edit#responses" target="_blank" style="color:var(--accent); font-weight:700;">View Data &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>IA Responses</h3>
+                <a href="https://docs.google.com/forms/d/1fo6OkfPGr_fDlevecJxHuNA0Wg9HpBsTllbV7QPQNLY/edit#responses" target="_blank" style="color:var(--accent); font-weight:700;">View Data &rarr;</a>
+            </div>
+        </div>
+        
+        <h3>Access Log</h3>
+        <table class="table-pro">
+            <tr><td>RealisticRoleplayer8</td><td>FOUNDER</td><td style="color:var(--success);">GRANTED</td></tr>
+            <tr><td>Ibrokethetown</td><td>FOUNDER</td><td style="color:var(--success);">GRANTED</td></tr>
+            <tr><td>joecool822</td><td>OWNER</td><td style="color:var(--danger);">DENIED</td></tr>
+        </table>
+    </div>
+
+    <footer>
+        &copy; 2025 NMSRP. <br>
+        Website made by <a href="#" class="credit">Shanting_op</a>
+    </footer>
+
+    <div id="auth-modal">
+        <div class="auth-box">
+            <h3><i class="fas fa-lock"></i> Verification</h3>
+            <p style="color:#666; font-size:0.9rem;">Enter credentials.</p>
+            <input type="password" id="auth-input" class="auth-input" placeholder="Passcode">
+            <button class="btn-unlock" onclick="verify()">Authenticate</button>
+            <button onclick="closeAuth()" style="background:none; border:none; color:#666; margin-top:15px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // ROUTING
+        function route(id) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+            
+            const btn = document.querySelector(`button[onclick="route('${id}')"]`);
+            if(btn) btn.classList.add('active');
+        }
+
+        // TABS
+        function tab(containerId, contentId) {
+            const container = document.getElementById(containerId);
+            if (!container) return; 
+            
+            container.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(contentId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // SECURITY
+        let targetPortal = '';
+        function auth(portal) {
+            targetPortal = portal;
+            document.getElementById('auth-modal').style.display = 'flex';
+            document.getElementById('auth-input').value = '';
+            document.getElementById('auth-input').focus();
+        }
+        function closeAuth() {
+            document.getElementById('auth-modal').style.display = 'none';
+        }
+        function verify() {
+            const val = document.getElementById('auth-input').value;
+            let ok = false;
+            // PASSWORDS
+            if(targetPortal === 'staff' && val === 'Staff123') ok = true;
+            if(targetPortal === 'train' && val === 'Train456') ok = true;
+            if(targetPortal === 'hr' && val === 'HighRank789') ok = true;
+            if(targetPortal === 'admin' && val === 'Admin999') ok = true;
+
+            if(ok) { closeAuth(); route('secure-' + targetPortal); } 
+            else { 
+                const inp = document.getElementById('auth-input');
+                inp.style.borderColor = 'var(--danger)';
+                inp.value = ''; inp.placeholder = 'Access Denied';
+            }
+        }
+
+        // COPY
+        function copyText(el) {
+            let text = "";
+            if(el.classList.contains('btn-copy')) {
+                const cmdBox = el.closest('.cmd-box');
+                text = cmdBox.querySelector('.cmd-code').innerText;
+            } else {
+                text = el; 
+            }
+            if(text) {
+                navigator.clipboard.writeText(text);
+                alert('Copied to clipboard!');
+            }
+        }
+
+        // SCROLL ANIMATIONS
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-el');
+                }
+            });
+        });
+        document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
+
+        // Enter Key
+        document.getElementById('auth-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') verify();
+        });
+    </script>
 </body>
 </html>
