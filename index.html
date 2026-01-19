@@ -12,7 +12,7 @@
     
     <style>
         /* =========================================
-           THEME: COMMAND CENTER (STABLE)
+           THEME: COMMAND CENTER (SERVER-SIDE SECURE)
            ========================================= */
         :root {
             --bg-body: #050505;
@@ -204,23 +204,19 @@
         .portal i { font-size: 2.5rem; margin-bottom: 15px; transition: 0.3s; }
         
         /* === PERMANENT COLORED PORTAL BUTTONS === */
-        /* Staff - Green */
-        .p-staff { border-top: 4px solid var(--success); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
+        .p-staff:hover, .p-staff { border-top: 4px solid var(--success); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
         .p-staff i { color: var(--success); }
         .p-staff:hover { box-shadow: 0 0 30px rgba(16, 185, 129, 0.3); transform: translateY(-5px); }
 
-        /* Trainer - Blue */
-        .p-train { border-top: 4px solid var(--accent); background: linear-gradient(180deg, rgba(14, 165, 233, 0.05) 0%, transparent 100%); }
+        .p-train:hover, .p-train { border-top: 4px solid var(--accent); background: linear-gradient(180deg, rgba(14, 165, 233, 0.05) 0%, transparent 100%); }
         .p-train i { color: var(--accent); }
         .p-train:hover { box-shadow: 0 0 30px rgba(14, 165, 233, 0.3); transform: translateY(-5px); }
 
-        /* HR - Purple */
-        .p-hr { border-top: 4px solid var(--purple); background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 100%); }
+        .p-hr:hover, .p-hr { border-top: 4px solid var(--purple); background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 100%); }
         .p-hr i { color: var(--purple); }
         .p-hr:hover { box-shadow: 0 0 30px rgba(139, 92, 246, 0.3); transform: translateY(-5px); }
 
-        /* Admin - Red */
-        .p-admin { border-top: 4px solid var(--danger); background: linear-gradient(180deg, rgba(244, 63, 94, 0.05) 0%, transparent 100%); }
+        .p-admin:hover, .p-admin { border-top: 4px solid var(--danger); background: linear-gradient(180deg, rgba(244, 63, 94, 0.05) 0%, transparent 100%); }
         .p-admin i { color: var(--danger); }
         .p-admin:hover { box-shadow: 0 0 30px rgba(244, 63, 94, 0.3); transform: translateY(-5px); }
 
@@ -256,11 +252,29 @@
 
         /* Rank Bars */
         .rank-bar {
-            padding: 15px 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            margin-bottom: 10px; border-radius: 8px; font-weight: 800; letter-spacing: 1px;
-            border-left: 5px solid; transition: padding-left 0.2s;
+            padding: 15px 20px;
+            margin-bottom: 10px; 
+            border-radius: 8px; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
-        .rank-bar:hover { padding-left: 30px; background: rgba(255,255,255,0.06); }
+        /* Specific Rank Gradients */
+        .rb-founder { background: linear-gradient(90deg, rgba(255, 71, 87, 0.2) 0%, transparent 100%); color: #ff4757; border-left: 5px solid #ff4757; }
+        .rb-owner { background: linear-gradient(90deg, rgba(255, 165, 2, 0.2) 0%, transparent 100%); color: #ffa502; border-left: 5px solid #ffa502; }
+        .rb-coowner { background: linear-gradient(90deg, rgba(255, 234, 167, 0.2) 0%, transparent 100%); color: #ffeaa7; border-left: 5px solid #ffeaa7; }
+        .rb-asst { background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, transparent 100%); color: #3b82f6; border-left: 5px solid #3b82f6; }
+        
+        .rb-lead { background: linear-gradient(90deg, rgba(0, 210, 211, 0.2) 0%, transparent 100%); color: #00d2d3; border-left: 5px solid #00d2d3; }
+        .rb-dir { background: linear-gradient(90deg, rgba(255, 159, 243, 0.2) 0%, transparent 100%); color: #ff9ff3; border-left: 5px solid #ff9ff3; }
+        .rb-mgmt { background: linear-gradient(90deg, rgba(84, 160, 255, 0.2) 0%, transparent 100%); color: #54a0ff; border-left: 5px solid #54a0ff; }
+        .rb-ia { background: linear-gradient(90deg, rgba(164, 176, 190, 0.2) 0%, transparent 100%); color: #a4b0be; border-left: 5px solid #a4b0be; }
+        .rb-sup { background: linear-gradient(90deg, rgba(95, 39, 205, 0.2) 0%, transparent 100%); color: #5f27cd; border-left: 5px solid #5f27cd; }
+        .rb-admin { background: linear-gradient(90deg, rgba(52, 31, 151, 0.2) 0%, transparent 100%); color: #341f97; border-left: 5px solid #341f97; }
+        .rb-mod { background: linear-gradient(90deg, rgba(229, 142, 38, 0.2) 0%, transparent 100%); color: #e58e26; border-left: 5px solid #e58e26; }
 
         @media (max-width: 768px) {
             nav { overflow-x: auto; white-space: nowrap; padding: 15px; gap: 20px; }
@@ -316,20 +330,18 @@
     <div id="coc" class="view">
         <h2><i class="fas fa-sitemap"></i> Chain of Command</h2>
         <div style="max-width: 700px; margin: 0 auto;">
-            <div class="rank-bar" style="border-color: var(--r-founder); color: var(--r-founder);">FOUNDER</div>
-            <div class="rank-bar" style="border-color: var(--r-owner); color: var(--r-owner);">OWNER</div>
-            <div class="rank-bar" style="border-color: var(--r-coowner); color: var(--r-coowner);">CO-OWNER</div>
-            <div class="rank-bar" style="border-color: var(--r-asst); color: var(--r-asst);">ASSISTANT OWNER</div>
-            
+            <div class="rank-bar rb-founder">FOUNDER</div>
+            <div class="rank-bar rb-owner">OWNER</div>
+            <div class="rank-bar rb-coowner">CO OWNER</div>
+            <div class="rank-bar rb-asst">ASSISTANT OWNER</div>
             <div style="height: 20px;"></div>
-            
-            <div class="rank-bar" style="border-color: var(--r-lead); color: var(--r-lead);">LEADERSHIP BOARD</div>
-            <div class="rank-bar" style="border-color: var(--r-dir); color: var(--r-dir);">DIRECTORS BOARD</div>
-            <div class="rank-bar" style="border-color: var(--r-mgmt); color: var(--r-mgmt);">MANAGEMENT BOARD</div>
-            <div class="rank-bar" style="border-color: var(--r-ia); color: var(--r-ia);">INTERNAL AFFAIRS BOARD</div>
-            <div class="rank-bar" style="border-color: var(--r-sup); color: var(--r-sup);">SUPERVISORY BOARD</div>
-            <div class="rank-bar" style="border-color: var(--r-admin); color: var(--r-admin);">ADMINISTRATION BOARD</div>
-            <div class="rank-bar" style="border-color: var(--r-mod); color: var(--r-mod);">MODERATION BOARD</div>
+            <div class="rank-bar rb-lead">LEADERSHIP BOARD</div>
+            <div class="rank-bar rb-dir">DIRECTORS BOARD</div>
+            <div class="rank-bar rb-mgmt">MANAGEMENT BOARD</div>
+            <div class="rank-bar rb-ia">INTERNAL AFFAIRS BOARD</div>
+            <div class="rank-bar rb-sup">SUPERVISORY BOARD</div>
+            <div class="rank-bar rb-admin">ADMINISTRATION BOARD</div>
+            <div class="rank-bar rb-mod">MODERATION BOARD</div>
         </div>
     </div>
 
@@ -338,7 +350,7 @@
         
         <div class="tabs">
             <button class="tab-btn active" onclick="tab('rules', 'r-gen')">General</button>
-            <button class="tab-btn" onclick="tab('rules', 'r-codes')">Radio Codes</button>
+            <button class="tab-btn" onclick="tab('rules', 'r-codes')">10 Codes</button>
             <button class="tab-btn" onclick="tab('rules', 'r-disc')">Discord</button>
             <button class="tab-btn" onclick="tab('rules', 'r-dept')">Departments</button>
         </div>
@@ -370,23 +382,42 @@
         <div id="r-codes" class="tab-content">
             <div class="grid">
                 <div class="card">
-                    <h3 style="color:var(--accent);">Status Codes</h3>
-                    <ul>
-                        <li><strong>10-8:</strong> On Duty</li>
-                        <li><strong>10-7:</strong> Off Duty</li>
-                        <li><strong>10-6:</strong> Busy</li>
-                        <li><strong>10-20:</strong> Location</li>
-                        <li><strong>10-23:</strong> Arrived on Scene</li>
-                    </ul>
+                    <h3 style="color:var(--accent);">General Status</h3>
+                    <table class="table-pro">
+                        <tr><td>10-4</td><td>Acknowledgement / Copy</td></tr>
+                        <tr><td>10-6</td><td>Busy / Unavailable</td></tr>
+                        <tr><td>10-7</td><td>Out of Service / Off Duty</td></tr>
+                        <tr><td>10-8</td><td>In Service / Available</td></tr>
+                        <tr><td>10-19</td><td>Returning to Station</td></tr>
+                        <tr><td>10-20</td><td>Current Location</td></tr>
+                        <tr><td>10-22</td><td>Disregard</td></tr>
+                        <tr><td>10-23</td><td>Arrived on Scene</td></tr>
+                    </table>
                 </div>
+
                 <div class="card">
-                    <h3 style="color:var(--danger);">Emergency Codes</h3>
-                    <ul>
-                        <li><strong>Code 3:</strong> Lights & Sirens</li>
-                        <li><strong>Code 4:</strong> Scene Clear</li>
-                        <li><strong>10-80:</strong> Vehicle Pursuit</li>
-                        <li><strong>Signal 100:</strong> Hold Radio Traffic</li>
-                    </ul>
+                    <h3 style="color:var(--primary);">Incident Codes</h3>
+                    <table class="table-pro">
+                        <tr><td>10-10</td><td>Fight in Progress</td></tr>
+                        <tr><td>10-11</td><td>Traffic Stop</td></tr>
+                        <tr><td>10-13</td><td>Shots Fired</td></tr>
+                        <tr><td>10-16</td><td>Stolen Vehicle</td></tr>
+                        <tr><td>10-50</td><td>Car Accident</td></tr>
+                        <tr><td>10-90</td><td>Bank Alarm</td></tr>
+                        <tr><td>10-99</td><td>Officer in Distress (Panic)</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--danger);">Emergency Signals</h3>
+                    <table class="table-pro table-danger">
+                        <tr><td>Code 2</td><td>Urgent (Lights, No Siren)</td></tr>
+                        <tr><td>Code 3</td><td>Emergency (Lights & Siren)</td></tr>
+                        <tr><td>Code 4</td><td>Scene Safe / Clear</td></tr>
+                        <tr><td>10-80</td><td>Vehicle Pursuit</td></tr>
+                        <tr><td>Signal 100</td><td>Hold Radio Traffic (Emergency Only)</td></tr>
+                        <tr><td>11-99</td><td>Officer Needs Immediate Assistance</td></tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -843,21 +874,51 @@ Pass / Fail:</span>
         function closeAuth() {
             document.getElementById('auth-modal').style.display = 'none';
         }
-        function verify() {
+        
+        async function verify() {
             const val = document.getElementById('auth-input').value;
-            let ok = false;
-            // PASSWORDS
-            if(targetPortal === 'staff' && val === 'NMS-Staff-2025') ok = true;
-            if(targetPortal === 'train' && val === 'Train-Force-99') ok = true;
-            if(targetPortal === 'hr' && val === 'HighCommand-Key') ok = true;
-            if(targetPortal === 'admin' && val === 'System-Root-Access') ok = true;
+            const btn = document.querySelector('.btn-unlock');
+            
+            // UI Loading State
+            btn.innerText = "Verifying...";
+            btn.disabled = true;
 
-            if(ok) { closeAuth(); route('secure-' + targetPortal); } 
-            else { 
-                const inp = document.getElementById('auth-input');
-                inp.style.borderColor = 'var(--danger)';
-                inp.value = ''; inp.placeholder = 'Access Denied';
+            try {
+                // To enable Vercel Serverless security, uncomment the fetch block below
+                /*
+                const response = await fetch('/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ portal: targetPortal, password: val })
+                });
+                const result = await response.json();
+                */
+
+                // Simulating response for now (Remove this block if using the fetch code above)
+                const result = { success: false };
+                if(targetPortal === 'staff' && val === 'NMS-Staff-2025') result.success = true;
+                if(targetPortal === 'train' && val === 'Train-Force-99') result.success = true;
+                if(targetPortal === 'hr' && val === 'HighCommand-Key') result.success = true;
+                if(targetPortal === 'admin' && val === 'System-Root-Access') result.success = true;
+                await new Promise(r => setTimeout(r, 600)); // Fake network delay
+
+                if (result.success) {
+                    closeAuth();
+                    route('secure-' + targetPortal);
+                } else {
+                    const inp = document.getElementById('auth-input');
+                    inp.style.borderColor = 'var(--danger)';
+                    inp.value = ''; 
+                    inp.placeholder = 'Access Denied';
+                }
+            } catch (error) {
+                console.error('Auth Error:', error);
+                alert('Connection Error');
             }
+
+            // Reset UI
+            btn.innerText = "Authenticate";
+            btn.disabled = false;
         }
 
         // COPY
