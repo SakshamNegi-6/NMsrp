@@ -1,7 +1,7 @@
 export default function handler(req, res) {
     const { portal, password } = req.body;
 
-    // 1. SECURE PASSWORDS (Server Side - Change these here)
+    // 1. SECURE PASSWORDS (Server Side)
     const PASSWORDS = {
         staff: process.env.PASS_STAFF || "NMS-Staff-2025",
         train: process.env.PASS_TRAIN || "Train-Force-99",
@@ -9,7 +9,7 @@ export default function handler(req, res) {
         admin: process.env.PASS_ADMIN || "System-Root-Access"
     };
 
-    // 2. THE SECRET PANELS (This HTML is hidden until login)
+    // 2. THE SECRET PANELS
     const CONTENT = {
         // === STAFF PANEL ===
         staff: `
@@ -27,7 +27,7 @@ export default function handler(req, res) {
                 <div class="card">
                     <h3>Expectations</h3>
                     <ul>
-                        <li><strong>Professionalism:</strong> Always use proper SPaG (Spelling, Punctuation, Grammar).</li>
+                        <li><strong>Professionalism:</strong> Always use proper SPaG.</li>
                         <li><strong>Activity:</strong> Minimum 4 hours/week logged.</li>
                         <li><strong>Tickets:</strong> Respond within 12 hours.</li>
                         <li><strong>Respect:</strong> Do not argue in chat. Take it to DMs.</li>
@@ -58,11 +58,12 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === TRAINER PANEL ===
+        // === TRAINER PANEL (UPDATED) ===
         train: `
             <h2><i class="fas fa-graduation-cap"></i> Training Division</h2>
             <div class="tabs">
                 <button class="tab-btn active" onclick="tab('secure-train', 't-proto')">Protocols</button>
+                <button class="tab-btn" onclick="tab('secure-train', 't-exam')">Exam Questions</button>
                 <button class="tab-btn" onclick="tab('secure-train', 't-grading')">Grading</button>
                 <button class="tab-btn" onclick="tab('secure-train', 't-scripts')">Scripts</button>
             </div>
@@ -86,6 +87,51 @@ export default function handler(req, res) {
                             <li>If they use "All" commands -> <strong>Fail immediately</strong>.</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+
+            <div id="t-exam" class="tab-content">
+                <div style="display:flex; flex-direction:column; gap:20px;">
+                    
+                    <div class="card" style="border-left: 4px solid var(--accent);">
+                        <h3 style="color:var(--accent);">1. Terminology Check</h3>
+                        <ul style="line-height: 1.8; color: #e4e4e7;">
+                            <li><strong>VDM & RDM:</strong> Define both. Give an example and the punishment for each.</li>
+                            <li><strong>FRP (FailRP):</strong> Definition, Example, and Punishment.</li>
+                            <li><strong>NLR (New Life Rule):</strong> Definition. How would you react if someone broke this?</li>
+                            <li><strong>NITRP (No Intent To RP):</strong> Definition, Example, and Punishment.</li>
+                            <li><strong>Acronyms:</strong> Define <strong>AA</strong> (Admin Abuse), <strong>MA</strong> (Major Abuse), and <strong>COA</strong> (Corruption of Administration).</li>
+                            <li><strong>Abuse Rules:</strong> Define <strong>Tow Abuse</strong> and <strong>Tool Abuse</strong> with examples.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--danger);">
+                        <h3 style="color:var(--danger);">2. Scenarios</h3>
+                        <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; margin-bottom:10px;">
+                            <strong>Scenario A:</strong><br>
+                            A man is shooting up the hospital with 4 people inside during Peacetime. He then leaves the game (LTAAP).<br>
+                            <em style="color:var(--text-muted); font-size:0.9rem;">Target Answer: Mass RDM + LTAAP. Ban/Log required.</em>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; margin-bottom:10px;">
+                            <strong>Scenario B:</strong><br>
+                            An officer arrests a person without saying <code>-cuffs-</code> in chat. He jails them without transport, then flees the scene.<br>
+                            <em style="color:var(--text-muted); font-size:0.9rem;">Target Answer: FRP (No RP actions) + Admin Abuse/FailRP depending on rank.</em>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px;">
+                            <strong>Scenario C:</strong><br>
+                            Player A claims Subject B is RDMing/FRPing. Subject B claims Player A did it first.<br>
+                            <em style="color:var(--text-muted); font-size:0.9rem;">Target Answer: Check Logs/Clips. Remain Neutral. Do not punish without proof.</em>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--gold);">
+                        <h3 style="color:var(--gold);">3. Chain of Command</h3>
+                        <p>Explain the hierarchy for reporting issues:</p>
+                        <p style="font-family:'JetBrains Mono'; background:#000; padding:10px; border-radius:6px; display:inline-block;">
+                            Jr Mod &rarr; Mod/Sr Mod &rarr; Head Mod &rarr; Admin
+                        </p>
+                    </div>
+
                 </div>
             </div>
 
