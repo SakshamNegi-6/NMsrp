@@ -1,7 +1,7 @@
 export default function handler(req, res) {
     const { portal, password } = req.body;
 
-    // 1. SECURE PASSWORDS (SERVER-SIDE)
+    // 1. SECURE PASSWORDS
     const PASSWORDS = {
         staff: process.env.PASS_STAFF || "NMS-Staff-2025",
         train: process.env.PASS_TRAIN || "Train-Force-99",
@@ -11,9 +11,9 @@ export default function handler(req, res) {
 
     // 2. SECURE PANEL CONTENT
     const CONTENT = {
-        // === STAFF PANEL (Green Theme) ===
+        // === STAFF PANEL ===
         staff: `
-            <div class="panel-header" style="border-bottom: 2px solid #10b981;">
+            <div class="panel-header">
                 <h2><i class="fas fa-laptop-code" style="color:#10b981;"></i> Staff Dashboard</h2>
             </div>
             
@@ -62,9 +62,9 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === TRAINER PANEL (Cyan Theme) ===
+        // === TRAINER PANEL ===
         train: `
-            <div class="panel-header" style="border-bottom: 2px solid #0ea5e9;">
+            <div class="panel-header">
                 <h2><i class="fas fa-graduation-cap" style="color:#0ea5e9;"></i> Training Division</h2>
             </div>
 
@@ -159,9 +159,9 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === HR PANEL (Purple Theme) ===
+        // === HR PANEL ===
         hr: `
-            <div class="panel-header" style="border-bottom: 2px solid #8b5cf6;">
+            <div class="panel-header">
                 <h2><i class="fas fa-gavel" style="color:#8b5cf6;"></i> HR Management</h2>
             </div>
 
@@ -173,31 +173,29 @@ export default function handler(req, res) {
             </div>
 
             <div id="h-proto" class="tab-content active">
-                <div class="grid">
-                    <div class="card" style="border-left: 4px solid #8b5cf6;">
-                        <h3 style="color:#8b5cf6;">Investigation Doctrine</h3>
-                        <p>When investigating a staff member, follow these steps strictly:</p>
-                        <ol style="margin-left: 20px; color:#d1d5db; line-height: 1.6;">
-                            <li><strong>Gather Evidence:</strong> Do not strike based on hearsay. Check Melonly logs and ask for clips.</li>
-                            <li><strong>Neutrality:</strong> If you are friends with the accused, hand the case to another HR.</li>
-                            <li><strong>The Golden Rule:</strong> You are the standard. If you break a rule, the punishment is double.</li>
-                        </ol>
-                    </div>
-                    <div class="card" style="border-left: 4px solid #8b5cf6;">
-                        <h3 style="color:#8b5cf6;">Zero Tolerance</h3>
-                        <ul>
-                            <li><strong>Leaking:</strong> Sharing staff chat screenshots = <strong>Blacklist</strong>.</li>
-                            <li><strong>Bias:</strong> Protecting friends in tickets = <strong>Removal</strong>.</li>
-                            <li><strong>Ghosting:</strong> Ignoring tickets while online = <strong>Strike</strong>.</li>
-                        </ul>
-                    </div>
+                <div class="card" style="border-left: 4px solid #8b5cf6;">
+                    <h3>Investigation Doctrine</h3>
+                    <p>When investigating a staff member, follow these steps strictly:</p>
+                    <ol style="margin-left: 20px; color:#d1d5db; line-height: 1.6;">
+                        <li><strong>Gather Evidence:</strong> Do not strike based on hearsay. Check Melonly logs and ask for clips.</li>
+                        <li><strong>Neutrality:</strong> If you are friends with the accused, hand the case to another HR.</li>
+                        <li><strong>The Golden Rule:</strong> You are the standard. If you break a rule, the punishment is double.</li>
+                    </ol>
+                </div>
+                <div class="card" style="border-left: 4px solid #8b5cf6;">
+                    <h3>Zero Tolerance</h3>
+                    <ul>
+                        <li><strong>Leaking:</strong> Sharing staff chat screenshots = <strong>Blacklist</strong>.</li>
+                        <li><strong>Bias:</strong> Protecting friends in tickets = <strong>Removal</strong>.</li>
+                        <li><strong>Ghosting:</strong> Ignoring tickets while online = <strong>Strike</strong>.</li>
+                    </ul>
                 </div>
             </div>
 
             <div id="h-ops" class="tab-content">
                 <div class="grid">
                     <div class="card" style="border-left: 4px solid #8b5cf6;">
-                        <h3 style="color:#8b5cf6;">SSU Protocols</h3>
+                        <h3>SSU Protocols</h3>
                         <ul>
                             <li><strong>Requirement:</strong> Every HR must host at least <strong>1 SSU per week</strong>.</li>
                             <li><strong>Announcement:</strong> Must ping @Here in Discord 30 minutes before start.</li>
@@ -205,7 +203,7 @@ export default function handler(req, res) {
                         </ul>
                     </div>
                     <div class="card" style="border-left: 4px solid #8b5cf6;">
-                        <h3 style="color:#8b5cf6;">Managing LoAs</h3>
+                        <h3>Managing LoAs</h3>
                         <p>When approving a Leave of Absence:</p>
                         <ul>
                             <li>Check if they are just avoiding a strike.</li>
@@ -235,7 +233,7 @@ export default function handler(req, res) {
 
             <div id="h-promo" class="tab-content">
                 <div class="card" style="border-left: 4px solid #8b5cf6;">
-                    <h3 style="color:#8b5cf6;">Promotion Guidelines</h3>
+                    <h3>Promotion Guidelines</h3>
                     <p>When considering a staff member for promotion:</p>
                     <ul>
                         <li><strong>Activity:</strong> Must have high activity for 2 weeks straight.</li>
@@ -247,9 +245,9 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === ADMIN PANEL (Red Theme) ===
+        // === ADMIN PANEL ===
         admin: `
-            <div class="panel-header" style="border-bottom: 2px solid #f43f5e;">
+            <div class="panel-header">
                 <h2><i class="fas fa-database" style="color:#f43f5e;"></i> Admin Control</h2>
             </div>
 
@@ -269,7 +267,6 @@ export default function handler(req, res) {
                 <div class="access-list">
                     <div class="access-row"><span class="access-name">F-01 | RealisticRoleplayer8</span><span class="badge allowed">ALLOWED</span></div>
                     <div class="access-row"><span class="access-name">F-02 | Fatblackmonki1</span><span class="badge allowed">ALLOWED</span></div>
-                    <div class="access-row"><span class="access-name">F-03 | Ibrokethetown</span><span class="badge allowed">ALLOWED</span></div>
                 </div>
             </div>
 
@@ -277,23 +274,6 @@ export default function handler(req, res) {
                 <div class="access-header" style="background: #ffa502; color:white;">OWNER</div>
                 <div class="access-list">
                     <div class="access-row"><span class="access-name">O | joecool822</span><span class="badge denied">DENIED</span></div>
-                </div>
-            </div>
-
-            <div class="access-group" style="border: 1px solid #ffeaa7;">
-                <div class="access-header" style="background: #ffeaa7; color:black;">CO OWNER</div>
-                <div class="access-list">
-                    <div class="access-row"><span class="access-name">CO-05 | Roblox</span><span class="badge allowed">ALLOWED</span></div>
-                    <div class="access-row"><span class="access-name">CO | Bentoki92</span><span class="badge allowed">ALLOWED</span></div>
-                </div>
-            </div>
-
-            <div class="access-group" style="border: 1px solid #3b82f6;">
-                <div class="access-header" style="background: #3b82f6; color:white;">ASSISTANT OWNER</div>
-                <div class="access-list">
-                    <div class="access-row"><span class="access-name">AO | killepro98thomas</span><span class="badge allowed">ALLOWED</span></div>
-                    <div class="access-row"><span class="access-name">AO | jehema3456</span><span class="badge denied">DENIED</span></div>
-                    <div class="access-row"><span class="access-name">AO | Ch4os_4her</span><span class="badge denied">DENIED</span></div>
                 </div>
             </div>
         `
