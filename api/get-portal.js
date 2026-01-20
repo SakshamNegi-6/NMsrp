@@ -11,7 +11,7 @@ export default function handler(req, res) {
 
     // 2. SECURE PANEL CONTENT
     const CONTENT = {
-        // === STAFF PANEL ===
+        // === STAFF PANEL (Green Theme) ===
         staff: `
             <div class="panel-header">
                 <h2><i class="fas fa-laptop-code" style="color:#10b981;"></i> Staff Dashboard</h2>
@@ -34,15 +34,13 @@ export default function handler(req, res) {
                         <li><strong>Professionalism:</strong> Always use proper SPaG (Spelling, Punctuation, Grammar).</li>
                         <li><strong>Activity:</strong> Minimum 4 hours/week logged.</li>
                         <li><strong>Tickets:</strong> Respond within 12 hours.</li>
-                        <li><strong>Respect:</strong> Do not argue in chat. Take it to DMs.</li>
-                        <li><strong>Intervention:</strong> Do not interfere in active scenes unless a rule is broken.</li>
                     </ul>
                 </div>
             </div>
 
             <div id="s-cmd" class="tab-content">
-                <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">3 Guys Hiring</span><span class="cmd-code">Do you need money💵?🍗 Three Guys is hiring cashiers, come at the location for an interview📑.</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
-                <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">Real Estate Ad</span><span class="cmd-code">Want to buy a house for your family🏠 ?come to the House Suburbs🏘️  and you will find the best house for you or for your family👩‍👩‍👧‍👧 .</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
+                <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">3 Guys Hiring</span><span class="cmd-code">Do you need money💵?🍗 Three Guys is hiring cashiers...</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
+                <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">Real Estate Ad</span><span class="cmd-code">Want to buy a house for your family🏠 ?come to the House Suburbs🏘️...</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
                 <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">Welcome</span><span class="cmd-code">:h 👋 Welcome to NMSRP! Join comms code 'NMSRP'.</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
                 <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">Taxi Service</span><span class="cmd-code">:h 🚕 Taxi Service is active! Call 555-TAXI.</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
                 <div class="cmd-box" style="border-left: 3px solid #10b981;"><div class="cmd-info"><span class="cmd-label" style="color:#10b981;">Shutdown</span><span class="cmd-code">:m ⛔️ Server Shutdown. Thanks for playing!</span></div><i class="fas fa-copy btn-copy" onclick="copyText(this)"></i></div>
@@ -62,7 +60,7 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === TRAINER PANEL ===
+        // === TRAINER PANEL (Cyan Theme) ===
         train: `
             <div class="panel-header">
                 <h2><i class="fas fa-graduation-cap" style="color:#0ea5e9;"></i> Training Division</h2>
@@ -159,7 +157,7 @@ export default function handler(req, res) {
             </div>
         `,
 
-        // === HR PANEL ===
+        // === HR PANEL (Purple Theme) ===
         hr: `
             <div class="panel-header">
                 <h2><i class="fas fa-gavel" style="color:#8b5cf6;"></i> HR Management</h2>
@@ -175,19 +173,13 @@ export default function handler(req, res) {
             <div id="h-proto" class="tab-content active">
                 <div class="card" style="border-left: 4px solid #8b5cf6;">
                     <h3>Investigation Doctrine</h3>
-                    <p>When investigating a staff member, follow these steps strictly:</p>
-                    <ol style="margin-left: 20px; color:#d1d5db; line-height: 1.6;">
-                        <li><strong>Gather Evidence:</strong> Do not strike based on hearsay. Check Melonly logs and ask for clips.</li>
-                        <li><strong>Neutrality:</strong> If you are friends with the accused, hand the case to another HR.</li>
-                        <li><strong>The Golden Rule:</strong> You are the standard. If you break a rule, the punishment is double.</li>
-                    </ol>
+                    <p>Gather Evidence. Remain Neutral. You are the standard.</p>
                 </div>
                 <div class="card" style="border-left: 4px solid #8b5cf6;">
                     <h3>Zero Tolerance</h3>
                     <ul>
-                        <li><strong>Leaking:</strong> Sharing staff chat screenshots = <strong>Blacklist</strong>.</li>
-                        <li><strong>Bias:</strong> Protecting friends in tickets = <strong>Removal</strong>.</li>
-                        <li><strong>Ghosting:</strong> Ignoring tickets while online = <strong>Strike</strong>.</li>
+                        <li><strong>Leaking:</strong> Instant Blacklist.</li>
+                        <li><strong>Bias:</strong> Instant Removal.</li>
                     </ul>
                 </div>
             </div>
@@ -196,20 +188,11 @@ export default function handler(req, res) {
                 <div class="grid">
                     <div class="card" style="border-left: 4px solid #8b5cf6;">
                         <h3>SSU Protocols</h3>
-                        <ul>
-                            <li><strong>Requirement:</strong> Every HR must host at least <strong>1 SSU per week</strong>.</li>
-                            <li><strong>Announcement:</strong> Must ping @Here in Discord 30 minutes before start.</li>
-                            <li><strong>Duration:</strong> Must keep the server active for at least 45 minutes.</li>
-                        </ul>
+                        <p>Host 1 SSU per week. Ping @Here 30 mins prior.</p>
                     </div>
                     <div class="card" style="border-left: 4px solid #8b5cf6;">
                         <h3>Managing LoAs</h3>
-                        <p>When approving a Leave of Absence:</p>
-                        <ul>
-                            <li>Check if they are just avoiding a strike.</li>
-                            <li>Max duration: <strong>14 Days</strong> (unless emergency).</li>
-                            <li>Log the LoA in the #staff-management channel.</li>
-                        </ul>
+                        <p>Max 14 Days. Check for strike evasion.</p>
                     </div>
                 </div>
             </div>
@@ -234,18 +217,12 @@ export default function handler(req, res) {
             <div id="h-promo" class="tab-content">
                 <div class="card" style="border-left: 4px solid #8b5cf6;">
                     <h3>Promotion Guidelines</h3>
-                    <p>When considering a staff member for promotion:</p>
-                    <ul>
-                        <li><strong>Activity:</strong> Must have high activity for 2 weeks straight.</li>
-                        <li><strong>Tickets:</strong> Must have handled 10+ tickets successfully.</li>
-                        <li><strong>Attitude:</strong> Must be helpful, not just punitive.</li>
-                        <li><strong>Logging:</strong> Check Melonly to ensure they log all actions.</li>
-                    </ul>
+                    <p>Check activity, tickets, and attitude. Verify logs on Melonly.</p>
                 </div>
             </div>
         `,
 
-        // === ADMIN PANEL ===
+        // === ADMIN PANEL (Red Theme) ===
         admin: `
             <div class="panel-header">
                 <h2><i class="fas fa-database" style="color:#f43f5e;"></i> Admin Control</h2>
@@ -267,13 +244,6 @@ export default function handler(req, res) {
                 <div class="access-list">
                     <div class="access-row"><span class="access-name">F-01 | RealisticRoleplayer8</span><span class="badge allowed">ALLOWED</span></div>
                     <div class="access-row"><span class="access-name">F-02 | Fatblackmonki1</span><span class="badge allowed">ALLOWED</span></div>
-                </div>
-            </div>
-
-            <div class="access-group" style="border: 1px solid #ffa502;">
-                <div class="access-header" style="background: #ffa502; color:white;">OWNER</div>
-                <div class="access-list">
-                    <div class="access-row"><span class="access-name">O | joecool822</span><span class="badge denied">DENIED</span></div>
                 </div>
             </div>
         `
