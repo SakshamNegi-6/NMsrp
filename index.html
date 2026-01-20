@@ -11,7 +11,7 @@
     
     <style>
         :root { 
-            --bg-body: #050505; --bg-card: rgba(15, 15, 20, 0.8); --border: rgba(255, 255, 255, 0.08); 
+            --bg-card: rgba(15, 15, 20, 0.75); --border: rgba(255, 255, 255, 0.08); 
             --highlight: rgba(255, 255, 255, 0.03);
             
             /* UI Colors */
@@ -26,13 +26,18 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: var(--bg-body); color: var(--text-main);
+            color: var(--text-main);
             font-family: 'Manrope', sans-serif; min-height: 100vh; overflow-x: hidden;
-            /* Professional Dark Gradient Background */
-            background-image: 
-                radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 90%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
-            background-attachment: fixed;
+            /* LIVE NEBULA ANIMATION */
+            background: linear-gradient(-45deg, #020024, #090979, #1c0b3d, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -42,7 +47,7 @@
         /* Navigation */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 18px 50px; 
-            background: rgba(5,5,5,0.9); backdrop-filter: blur(var(--blur)); 
+            background: rgba(5,5,5,0.8); backdrop-filter: blur(var(--blur)); 
             border-bottom: 1px solid var(--border); z-index: 1000; 
             display: flex; justify-content: space-between; align-items: center; 
         }
@@ -86,7 +91,7 @@
         .card { 
             background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; 
             padding: 35px; transition: all 0.4s ease; position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(10px);
         }
         .card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .card h3 { font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
@@ -145,7 +150,7 @@
         .portal { 
             padding: 50px; background: var(--bg-card); border: 1px solid var(--border); 
             border-radius: 24px; text-align: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-            position: relative; overflow: hidden;
+            position: relative; overflow: hidden; backdrop-filter: blur(10px);
         }
         .portal:hover { transform: translateY(-10px); }
         .portal i { font-size: 3rem; margin-bottom: 20px; transition: 0.3s; }
@@ -167,12 +172,10 @@
         .rank-bar { 
             padding: 18px 25px; margin-bottom: 12px; border-radius: 12px; font-weight: 800; letter-spacing: 1px; 
             border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5); backdrop-filter: blur(5px);
         }
         
         /* Specific Roles */
-        .rb-coowner { background: linear-gradient(90deg, rgba(255, 234, 167, 0.15) 0%, transparent 100%); color: #ffeaa7; border-left: 5px solid #ffeaa7; }
-        .rb-asst { background: linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, transparent 100%); color: #3b82f6; border-left: 5px solid #3b82f6; }
         .rb-direct { background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, transparent 100%); color: #ffd700; border-left: 5px solid #ffd700; }
         .rb-super { background: linear-gradient(90deg, rgba(244, 63, 94, 0.15) 0%, transparent 100%); color: #f43f5e; border-left: 5px solid #f43f5e; }
         .rb-manage { background: linear-gradient(90deg, rgba(249, 115, 22, 0.15) 0%, transparent 100%); color: #f97316; border-left: 5px solid #f97316; }
@@ -248,10 +251,6 @@
     <div id="coc" class="view">
         <h2><i class="fas fa-sitemap"></i> Chain of Command</h2>
         <div style="max-width: 800px; margin: 0 auto;">
-            
-            <div class="rank-bar rb-coowner">CO OWNER</div>
-            <div class="rank-bar rb-asst">ASSISTANT OWNER</div>
-            <div style="height: 25px;"></div>
             
             <div class="rank-bar rb-direct">DIRECTOR BOARD</div>
             <div class="rank-bar rb-direct">DEPUTY DIRECTOR</div>
@@ -418,18 +417,15 @@
         <div class="grid">
             <div class="card" style="border-left: 4px solid #10b981;">
                 <h3>🛡️ Staff Team</h3>
-                <p>Maintain order. Dedication required.</p>
-                <a href="https://forms.gle/RCBMPfSLYwFnJgB6A" target="_blank" class="btn-full" style="color:#10b981; border-color:#10b981;">Apply Now</a>
+                <a href="#" class="btn-full" style="color:#10b981; border-color:#10b981;">Apply Now</a>
             </div>
             <div class="card" style="border-left: 4px solid #3b82f6;">
                 <h3>📸 Media Team</h3>
-                <p>Create content and manage socials.</p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScoD07vcZMjLnC157qO3-Gn-ZwKDNA117v3JLF4e90vAM_yxA/viewform" target="_blank" class="btn-full" style="color:#3b82f6; border-color:#3b82f6;">Apply Now</a>
+                <a href="#" class="btn-full" style="color:#3b82f6; border-color:#3b82f6;">Apply Now</a>
             </div>
             <div class="card" style="border-left: 4px solid #ffffff;">
                 <h3>🕵️ Internal Affairs</h3>
-                <p>Investigate corruption.</p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFBKp-GacVi2b9aNUOZq9Z8JBWNH7aFyi68aKXaEtswJjfoA/viewform" target="_blank" class="btn-full" style="color:#dcdcdc; border-color:#dcdcdc;">Apply Now</a>
+                <a href="#" class="btn-full" style="color:#dcdcdc; border-color:#dcdcdc;">Apply Now</a>
             </div>
         </div>
     </div>
